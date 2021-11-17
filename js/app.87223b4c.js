@@ -1053,7 +1053,7 @@
                                     /** @type {string} */
                                     e = result[1];
                                 case 4:
-                                    return property = ("0" + e).slice(-2), ajaxPostUrl = "https://mafia-patron.github.io/statistic/{month}-games.json".replace("{month}", value + "-" + property), _context10.next = 8, fetch(ajaxPostUrl);
+                                    return property = ("0" + e).slice(-2), ajaxPostUrl = "https://mafia-neft-club.github.io/statisticmafia/{month}-games.json".replace("{month}", value + "-" + property), _context10.next = 8, fetch(ajaxPostUrl);
                                 case 8:
                                     if (r = _context10.sent, !r.ok) {
                                         /** @type {number} */
