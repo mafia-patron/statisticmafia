@@ -1,0 +1,16 @@
+.md-tab{padding-left:0!important;padding-right:0!important}
+.md-tab .player-statistic .select-player-container{text-align:left;padding-left:10px;margin-bottom:10px}
+.md-tab .player-statistic .select-player-container .player-lable{display:inline-block;width:50px}
+.md-tab .player-statistic .select-player-container .player-selector{display:inline-block;width:200px}
+.text-start.sortable{padding-left:3px!important;padding-right:3px!important}
+.games-statistic{height:32px;line-height:32px}
+.games-statistic.games-statistic-all{background-color:#ff0}
+.games-statistic.games-statistic-red-wins{background-color:#f08080}
+.games-statistic.games-statistic-black-wins{color:#fff;background-color:#1f1f1f}
+.games-statistic.games-statistic-rating{background-color:#d3d3d3}
+.notRating{background-color:#d3d3d3!important}
+.topLevelPlayers{background-color:#7CFC00!important}
+.tableFixedHead{display:block;position:relative;}
+tr:hover{background-color:transparent!important}
+tr:hover.notRating{background-color:#d3d3d3!important}
+#app{font-family:Avenir,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-align:center;color:#2c3e50}
