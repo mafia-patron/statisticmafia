@@ -5,7 +5,7 @@
      * @return {?}
      */
     function push(element) {
-        var moduleId;
+        var moduleId; 
         var script_id;
         var crossfilterable_layers = element[0];
         var appliedUpdate = element[1];
@@ -945,7 +945,7 @@
                     redWinsCount : 0,
                     blackWinsCount : 0,
                     gamesForRatingCount : 0,
-                    ratingThreshold : .14,
+                    ratingThreshold : .13,
                     currentSort : "name",
                     currentSortOrder : "asc",
                     database : null,
