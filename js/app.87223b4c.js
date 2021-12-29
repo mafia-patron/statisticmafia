@@ -1192,7 +1192,7 @@
                         }
                     });
                     /** @type {number} */
-                    this.gamesForRatingCount = Math.ceil(this.games.length * this.ratingThreshold);
+                    this.gamesForRatingCount = Math.round(this.games.length * this.ratingThreshold);
                     /** @type {!Array} */
                     this.ratingPlayers = [];
                     this.players.forEach(function(post) {
