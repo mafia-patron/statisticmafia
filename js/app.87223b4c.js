@@ -257,7 +257,7 @@
                                 "background-color" : "rgb(255, 255, " + (255 - Math.round(item.relativePoints)%255) + ")"
                             } : {}
                         }, [self._v(self._s(item.relativePoints || 0))]), h("td", { style : {"border-left" : "1px solid #dddddd"}}, [self._v(self._s(item.games))]), h("td", [self._v(self._s(item.wins))]), h("td", { style : {"border-left" : "1px solid #dddddd"}}, [self._v(self._s(item.firstKilled))]), h("td", [self._v(self._s(item.firstKilledGuessPoints.toFixed(2)))]), h("td", { style : {"border-left" : "1px solid #dddddd"}}, [self._v(self._s(item.sherif))]), h("td", [self._v(self._s(item.sherifWins))]), h("td", { style : {"border-left" : "1px solid #dddddd"}}, [self._v(self._s(item.citizen))]), h("td", [self._v(self._s(item.citizenWins))]), h("td", { style : {"border-left" : "1px solid #dddddd"}}, [self._v(self._s(item.don))]), h("td", [self._v(self._s(item.donWins))]),
-                            h("td", { style : {"border-left" : "1px solid #dddddd"}}, [self._v(self._s(item.maf))]), h("td", [self._v(self._s(item.mafWins))]), h("td", { style : {"border-left" : "1px solid #dddddd"}}, [self._v(self._s(item.ci))]), h("td", { style : {"border-left" : "1px solid #dddddd"}}, [self._v(self._s(item.absolutePoints))])])];
+                            h("td", { style : {"border-left" : "1px solid #dddddd"}}, [self._v(self._s(item.maf))]), h("td", [self._v(self._s(item.mafWins))]), h("td", { style : {"border-left" : "1px solid #dddddd"}}, [self._v(self._s(item.ci))]), h("td", { style : {"border-left" : "1px solid #dddddd"}}, [self._v(self._s(item.additionalPoints))]), h("td", { style : {"border-left" : "1px solid #dddddd"}}, [self._v(self._s(item.absolutePoints))])])];
                     }
                 }], null, false, 3914092594)
             })], 1), h("div", {
@@ -1020,6 +1020,10 @@
                         value : "ci",
                         sortable : false
                     }, {
+                        text : "\u0414\u043E\u043F\u0020\u0431\u0430\u043B\u043B\u044B",
+                        value : "additionalPoints",
+                        sortable : false
+                    }, {
                         text : "\u0411\u0430\u043b\u043b\u044b",
                         value : "absolutePoints",
                         sortable : false
@@ -1120,6 +1124,11 @@
                         var name = 0;
                         for (; name < 10; name++) {
                             var item = list[name];
+
+                            if(options.selectedPoints){
+                                item.additionalPoints = parseInt(item.additionalPoints) + parseInt(options.selectedPoints[name]);
+                            }
+
                             item.games++;
                             item.box[name]++;
                             if (common.playerWinGame(options, name)) {
@@ -1268,6 +1277,7 @@
                         firstKilledGuessPoints : 0,
                         absolutePoints : 0,
                         relativePoints : 0,
+                        additionalPoints : 0,
                         ci : 0,
                         box : Array(10).fill(0),
                         boxWins : Array(10).fill(0),
@@ -1326,7 +1336,7 @@
                     return o.firstKilled == t;
                 },
                 calculatePoints : function(b) {
-                    b.absolutePoints = (b.wins + b.firstKilledGuessPoints + (b.games !== 0 ? (b.firstKilledAndLose * (b.firstKilled / b.games)) : 0)).toFixed(2);
+                    b.absolutePoints = (b.wins + b.firstKilledGuessPoints + (b.games !== 0 ? (b.firstKilledAndLose * (b.firstKilled / b.games)) : 0) + b.additionalPoints).toFixed(2);
                     /** @type {number} */
                     b.relativePoints = b.games !== 0 ? (100 * b.absolutePoints / b.games).toFixed(2) : 0;
                 },
