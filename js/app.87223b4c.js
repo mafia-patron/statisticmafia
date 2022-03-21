@@ -1126,7 +1126,7 @@
                             var item = list[name];
 
                             if(options.selectedPoints){
-                                item.additionalPoints = parseInt(item.additionalPoints) + parseInt(options.selectedPoints[name]);
+                                item.additionalPoints = parseFloat(item.additionalPoints) + parseFloat(options.selectedPoints[name]);
                             }
 
                             item.games++;
