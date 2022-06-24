@@ -237,8 +237,8 @@
                     "hide-default-footer" : "",
                     "multi-sort" : "",
                     "mobile-breakpoint" : "0",
-                    "sort-by" : ["isRating", "relativePoints", "absolutePoints", "games", "name"],
-                    "sort-desc" : [true, true, true, true, false]
+                    "sort-by" : ["isRating", "relativePoints"],
+                    "sort-desc" : [true, true]
                 },
                 scopedSlots : self._u([{
                     key : "item",
@@ -962,71 +962,54 @@
                     }, {
                         text : "\u0418\u0433\u0440\u043e\u043a",
                         value : "name",
-                        sortable : false
                     }, {
                         text : "\u041e\u0447\u043a\u0438",
                         value : "relativePoints",
-                        sortable : false
                     }, {
                         text : "\u0418\u0433\u0440",
                         value : "games",
-                        sortable : false
                     }, {
                         text : "\u041f\u043e\u0431\u0435\u0434",
-                        value : "wins",
-                        sortable : false
+                        value : "wins"
                     }, {
                         text : "\u041f\u0435\u0440\u0432\u044b\u0439 \u0443\u0431\u0438\u0442\u044b\u0439",
                         value : "firstKilled",
-                        sortable : false
                     }, {
                         text : "\u041b\u0443\u0447\u0448\u0438\u0439 \u0445\u043e\u0434",
                         value : "firstKilledGuessPoints",
-                        sortable : false
                     }, {
                         text : "\u0418\u0433\u0440 \u0448\u0435\u0440\u0438\u0444\u043e\u043c",
                         value : "sherif",
-                        sortable : false
                     }, {
                         text : "\u041f\u043e\u0431\u0435\u0434 \u0448\u0435\u0440\u0438\u0444\u043e\u043c",
                         value : "sherifWins",
-                        sortable : false
                     }, {
                         text : "\u0418\u0433\u0440 \u043c\u0438\u0440\u043d\u044b\u043c",
                         value : "citizen",
-                        sortable : false
                     }, {
                         text : "\u041f\u043e\u0431\u0435\u0434 \u043c\u0438\u0440\u043d\u044b\u043c",
                         value : "citizenWins",
-                        sortable : false
                     }, {
                         text : "\u0418\u0433\u0440 \u0434\u043e\u043d\u043e\u043c",
-                        value : "don",
-                        sortable : false
+                        value : "don"
                     }, {
                         text : "\u041f\u043e\u0431\u0435\u0434 \u0434\u043e\u043d\u043e\u043c",
-                        value : "donWins",
-                        sortable : false
+                        value : "donWins"
                     }, {
                         text : "\u0418\u0433\u0440 \u043c\u0430\u0444\u043e\u043c",
-                        value : "maf",
-                        sortable : false
+                        value : "maf"
                     }, {
                         text : "\u041f\u043e\u0431\u0435\u0434 \u043c\u0430\u0444\u043e\u043c",
-                        value : "mafWins",
-                        sortable : false
+                        value : "mafWins"
                     }, {
                         text : "CI",
-                        value : "ci",
-                        sortable : false
+                        value : "ci"
                     }, {
                         text : "\u0414\u043E\u043F\u0020\u0431\u0430\u043B\u043B\u044B",
-                        value : "additionalPoints",
-                        sortable : false
+                        value : "additionalPoints"
                     }, {
                         text : "\u0411\u0430\u043b\u043b\u044b",
                         value : "absolutePoints",
-                        sortable : false
                     }]
                 };
             },
