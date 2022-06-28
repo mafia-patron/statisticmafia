@@ -217,16 +217,94 @@
         /**
          * @return {?}
          */
+
+        var numberOfViwed = 0;
+        var searchPhrase = '';
+        var arrOfSearched = [];
+
         var render = function() {
             var self = this;
             var _h = self.$createElement;
-            var h = self._self._c || _h;
+            var h = self._self._c || _h;          
             return self.database ? h("md-tabs", [h("md-tab", {
                 attrs : {
                     id : "tab-base",
                     "md-label" : "\u0420\u0435\u0439\u0442\u0438\u043d\u0433"
                 }
-            }, [h("div", [h("v-data-table", {
+            }, [
+                h("div", { staticClass : "search-block" }, 
+                    [self._v("\u0418\u0433\u0440\u043e\u043a: "), 
+                        h("input", { 
+                            attrs : {
+                                type : 'text'
+                            }, 
+                            staticClass : 'search-field',
+                             on : {
+                                "keyup" : function(e) {
+                                    if ((e.key === 'Enter' || e.keyCode === 13) && e.target.value.length > 0){
+                                       e.target.nextElementSibling.click()
+                                    }                                    
+                                }
+                            }
+                        }),
+                        h("i", {
+                            staticClass : "v-icon notranslate mdi mdi-magnify theme--light",
+                            style : {"cursor" : "pointer"},
+                            on : {
+                                "click" : function(e) {                                     
+
+                                    var searchValue = e.target.previousElementSibling.value.toLowerCase();
+
+                                    if(searchValue.length > 0){
+
+                                        arrOfSearched = [];
+
+                                        var tds = document.getElementsByClassName("playerName"); 
+
+                                        // получаю подходящие ячейки и записываю в массив
+                                        for (var i = 0; i < tds.length; i++) {
+                                            var index = tds[i].innerText.toLowerCase().indexOf(searchValue);                                           
+                                            if (index != -1) { 
+                                                arrOfSearched.push(tds[i]);                                               
+                                            } 
+                                            // скрываю подсветку всех ячеек
+                                            tds[i].children[0].style.backgroundColor = "";
+                                        } 
+
+                                        // если поисковая фраза не поменялась
+                                        // указываю номер ячейки, который равен следущему после уже просмотренного
+                                        // или первый если дошли до конца массива
+                                        if(searchPhrase == searchValue){
+                                            if(numberOfViwed == arrOfSearched.length - 1){
+                                                numberOfViwed = 0;
+                                            } else {
+                                                numberOfViwed ++;
+                                            }
+                                        } else {
+                                            numberOfViwed = 0;
+                                            searchPhrase = searchValue;
+                                        }                                            
+                                            
+                                        // подсвечиваю ячейку с нужным порядковым номером если был найден хотя бы один игрок
+                                        if(arrOfSearched.length > 0) {
+                                            arrOfSearched[numberOfViwed].children[0].style.backgroundColor = "rgb(78 198 84)";
+                                            arrOfSearched[numberOfViwed].scrollIntoView({
+                                                behavior: 'smooth',
+                                                block: 'end'
+                                            });
+                                        } else {
+                                            alert('Игрок ' + e.target.previousElementSibling.value + ' не найден');
+                                        }                                        
+                                                                              
+                                    } else {
+                                        alert('Введите игрока')
+                                    }                       
+                                }
+                            }
+                        }),
+                    ]
+                ),
+                h("div", [h("v-data-table", {
                 attrs : {
                     headers : self.headers,
                     items : self.playerStatisticsForDisplay,
@@ -252,7 +330,7 @@
                             class : {
                                 topLevelPlayers : sender.index < 10
                             }
-                        }, [self._v(self._s(item.isRating ? sender.index + 1 : ""))]), h("td", [self._v(self._s(item.name))]), h("td", {
+                        }, [self._v(self._s(sender.index + 1))]), h("td", { staticClass : "playerName" }, [h("span", [self._v(self._s(item.name))])]), h("td", {
                             style : item.isRating ? {
                                 "background-color" : "rgb(255, 255, " + (255 - Math.round(item.relativePoints)%255) + ")"
                             } : {}
@@ -962,6 +1040,7 @@
                     }, {
                         text : "\u0418\u0433\u0440\u043e\u043a",
                         value : "name",
+                        sortable : false
                     }, {
                         text : "\u041e\u0447\u043a\u0438",
                         value : "relativePoints",
@@ -1006,10 +1085,12 @@
                         value : "ci"
                     }, {
                         text : "\u0414\u043E\u043F\u0020\u0431\u0430\u043B\u043B\u044B",
-                        value : "additionalPoints"
+                        value : "additionalPoints",
+                        sortable : false
                     }, {
                         text : "\u0411\u0430\u043b\u043b\u044b",
                         value : "absolutePoints",
+                        sortable : false
                     }]
                 };
             },
