@@ -14,3 +14,7 @@
 tr:hover{background-color:transparent!important}
 tr:hover.notRating{background-color:#d3d3d3!important}
 #app{font-family:Avenir,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-align:center;color:#2c3e50}
+.search-block {text-align: left; padding-left: 10px; margin-bottom: 10px}
+.search-block .search-field {border: 1px solid rgba(34, 36, 38, 0.15); line-height: 1.2142em; padding: 0.67861429em 2.1em 0.67861429em 1em;}
+.theme--light.v-data-table .v-data-table-header th.sortable.active .v-data-table-header__icon.mdi-arrow-up {color: rgb(255, 0, 0);}
+.theme--light.v-data-table .v-data-table-header__sort-badge {background-color: rgb(255, 0, 0); color: rgb(255, 255, 255)}
