@@ -239,7 +239,7 @@
                                 type : 'text'
                             }, 
                             staticClass : 'search-field',
-                             on : {
+                            on : {
                                 "keyup" : function(e) {
                                     if ((e.key === 'Enter' || e.keyCode === 13) && e.target.value.length > 0){
                                        e.target.nextElementSibling.click()
@@ -375,6 +375,16 @@
                 attrs : {
                     playerStatisticsForDisplay : self.playerStatisticsForDisplayRating,
                     players : self.ratingPlayers
+                }
+            })], 1), h("md-tab", {
+                attrs : {
+                    id : "tab-game",
+                    "md-label" : "\u0418\u0433\u0440\u044B"
+                }
+            }, [h("GameStatistic", {
+                attrs : {
+                   games : this.games,
+                   players : this.players,
                 }
             })], 1)], 1) : self._e();
         };
@@ -567,6 +577,167 @@
             VChip : m["a"],
             VDataTable : j["a"]
         });
+
+        var updateGames = function() {
+            var self = this;
+            var _h = self.$createElement;
+            var _extends = self._self._c || _h;
+
+            return self.chosenDate ? _extends("div", {
+                staticClass : "date-statistic"
+            }, [_extends("div", {
+                staticClass : "select-date-container"
+            }, [_extends("div", {
+                staticClass : "date-lable"
+            }, [self._v("\u0414\u0430\u0442\u0430: "), _h("input", {
+                attrs : {
+                    type : 'date',
+                    value: self.chosenDate
+                },
+                on : {
+                    "change" : function(e) {
+                        self.chosenDate = e.target.value
+                    }
+                },
+                staticClass : 'date-field',
+            })])]), _extends("v-data-table", {
+                attrs : {
+                    headers : self.headers,
+                    items : self.items,
+                    options : self.options,
+                    "server-items-length" : 1,
+                    "disable-pagination" : "",
+                    "hide-default-footer" : "",
+                    "must-sort" : ""
+                },
+                on : {
+                    "update:options" : function(tmp) {
+                        /** @type {!Object} */
+                        self.options = tmp;
+                    }
+                },
+                scopedSlots : self._u([{
+                    key : "item.games",
+                    fn : function(sender) {
+                        var item = sender.item;
+                        return [_extends("v-chip", [self._v(self._s(item.games))])];
+                    }
+                }])
+            })], 1) : self._e();
+        };
+
+        var gameTab = {
+            name : "GameStatistic",
+            props : {
+                games : Array,
+                players : Array
+            },
+            data : function() {
+                return {
+                    chosenDate: null,
+                    items : [],
+                    options : {},
+                    headers : [{
+                        text : "\u0418\u0433\u0440\u043e\u043a",
+                        value : "name"
+                    },{
+                        text : "\u0418\u0433\u0440",
+                        value : "games",
+                    }]
+                };
+            },
+            mounted : function() {
+                const today = new Date();
+                const yyyy = today.getFullYear();
+                let mm = today.getMonth() + 1; // Months start at 0!
+                let dd = today.getDate();
+                if (dd < 10) dd = '0' + dd;
+                if (mm < 10) mm = '0' + mm;
+                this.chosenDate = yyyy + '-' + mm + '-' + dd;
+            },
+            watch : {
+                chosenDate : function() {
+                    this.updateTable();
+                },
+                options : {
+                    handler : function() {
+                        this.updateTable();
+                    },
+                    deep : true
+                }
+            },
+            methods : {
+                updateTable : function() {
+                    var self = this;
+                    this.getData().then(function(data) {
+                        self.items = data.items;
+                    });
+                },
+                getPlayerName : function(e) {
+                    return this.players.find(function(elem) {
+                        return elem.id === e;
+                    }).name;
+                },
+                findByDate : function() {
+                    var self = this;
+
+                    var result = [];
+
+                    self.players.forEach(function(player){
+                        var item = {};
+                        var existingGames = self.games.filter(function(elem) {
+                            return (elem.date == self.chosenDate && elem.players.indexOf(player.id) > -1)
+                        }).length;
+
+                        if(existingGames > 0){
+                            item.name = self.getPlayerName(player.id)
+                            item.games = existingGames
+                            result.push(item)
+                        }
+
+                    });
+
+                    return result;
+                },
+                getData : function(){
+                    var self = this;
+                    return new Promise(function(resolve) {
+                        var params = self.options;
+                        var field = params.sortBy;
+                        var match = params.sortDesc;
+                        var result = self.findByDate().slice(0);
+                        var diff = result.length;
+                        if (void 0 == field || 1 === field.length && 1 === match.length || 0 === field.length) {
+                            /** @type {string} */
+                            var key = "name";
+                            /** @type {boolean} */
+                            var reason = false;
+                            if (void 0 != field && 1 == field.length) {
+                                key = field[0];
+                                reason = match[0];
+                            }
+                            result = result.sort(function(expr, next) {
+                                var c = expr[key];
+                                var f = next[key];
+                                return reason ? c < f ? 1 : c > f ? -1 : 0 : c < f ? -1 : c > f ? 1 : 0;
+                            });
+                        }
+
+                        resolve({
+                            items : result,
+                            total : diff
+                        });
+                    });
+                }
+            }
+        }
+        var gameResult = Object(attributes["a"])(gameTab, updateGames, [], false, null, null, null);
+        var exportedGameResult = gameResult.exports;
+        require()(gameResult, {
+            VChip : m["a"],
+            VDataTable : j["a"]
+        });
+
         /**
          * @return {?}
          */
@@ -656,6 +827,8 @@
                 }], null, false, 3098048137)
             })], 1) : self._e();
         };
+
+
         /** @type {!Array} */
         var GET_AUTH_URL_TIMEOUT = [];
         var strangth = $("0393");
@@ -1014,7 +1187,8 @@
             components : {
                 RoleStatistic : exported,
                 PlayerStatistic : exports_,
-                BoxStatistic : tooltip
+                BoxStatistic : tooltip,
+                GameStatistic : exportedGameResult
             },
             props : {},
             data : function() {
