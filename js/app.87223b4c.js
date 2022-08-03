@@ -617,6 +617,13 @@
                     }
                 },
                 scopedSlots : self._u([{
+                    key : "item.number",
+                    fn : function(sender) {
+                        var item = sender.item;
+                        return [_extends("v-chip", [self._v(self._s(item.number))])];
+                    }
+                },
+                {
                     key : "item.games",
                     fn : function(sender) {
                         var item = sender.item;
@@ -638,6 +645,10 @@
                     items : [],
                     options : {},
                     headers : [{
+                        text : "\u041D\u043E\u043C\u0435\u0440",
+                        value : "number",
+                        sortable : false
+                    },{
                         text : "\u0418\u0433\u0440\u043e\u043a",
                         value : "name"
                     },{
@@ -720,6 +731,10 @@
                                 var c = expr[key];
                                 var f = next[key];
                                 return reason ? c < f ? 1 : c > f ? -1 : 0 : c < f ? -1 : c > f ? 1 : 0;
+                            });
+
+                            result.forEach(function(item, key){
+                                item.number = key + 1;
                             });
                         }
 
