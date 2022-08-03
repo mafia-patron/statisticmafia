@@ -620,7 +620,7 @@
                     key : "item.number",
                     fn : function(sender) {
                         var item = sender.item;
-                        return [_extends("v-chip", [self._v(self._s(item.number))])];
+                        return [self._v(self._s(item.number))];
                     }
                 },
                 {
